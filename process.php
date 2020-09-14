@@ -13,8 +13,19 @@
       header('Location: index.php');
   }*/
 
-  mkdir('uploads/test',0775);
+  //mkdir('uploads/test',0775);
+  
+  $currentMonth = date('m');
+  $currentYear = date('yy');
+  $newDir = 'uploads/sub_'.$currentMonth.'_'.$currentYear;
+
+  if(!file_exists($newDir) || !is_dir($newDir)){
+    mkdir($newDir,0775);
+  }
+
   $tmpFilePath = $_FILES['img']['tmp_name'];
   $realFileName = $_FILES['img']['name'];
-  move_uploaded_file($tmpFilePath,'uploads/'.time().$realFileName)
+  move_uploaded_file($tmpFilePath,$newDir.'/'.time().$realFileName)
+
+  
 ?>
